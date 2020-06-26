@@ -1,0 +1,16 @@
+{
+  "responses": [
+    {
+      "questionId": "001",
+      "userResponse": ["1"]
+    },
+    {
+      "questionId": "002",
+      "userResponse": ["1", "3", "4"]
+    },
+    {
+      "questionId": "003",
+      "userResponse": ["throwable"]
+    }
+  ]
+}

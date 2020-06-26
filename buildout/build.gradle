@@ -1,0 +1,22 @@
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$rootProject.ext.springBootVersion")
+    }
+}
+
+configurations {
+    implementationOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+
