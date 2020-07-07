@@ -20,7 +20,7 @@
     "description": "Java question",
     "type": "objective-multiple",
     "options": {
-      "1": "List a=new ArrayList<>();",
+      "1": "List a=new ArrayList<>();",r
       "2": "List b=new Collection<>();",
       "3": "List c=new ArrayList();",
       "4": "List<? extends Object> d=new ArrayList();"
