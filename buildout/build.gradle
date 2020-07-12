@@ -1,4 +1,5 @@
-
+import io.spring.gradle.dependencymanagement.DependencyManagementPlugin
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -9,14 +10,43 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$rootProject.ext.springBootVersion")
+
     }
 }
-
+apply plugin: 'org.springframework.boot'
+apply plugin: SpringBootPlugin
+apply plugin: DependencyManagementPlugin
 configurations {
     implementationOnly {
         extendsFrom annotationProcessor
     }
 }
+repositories {
+    mavenCentral()
+}
+jar {
+    archiveBaseName = "BuildOuts"
+    archiveVersion = "v1"
+    enabled = true
+}
 
-apply plugin: 'org.springframework.boot'
+dependencies{
+    implementation("org.springframework.boot:spring-boot-starter-web:$rootProject.ext.springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:$rootProject.ext.springBootVersion")
+    //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:$rootProject.ext.springBootVersion")
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+    runtimeOnly "org.springframework.boot:spring-boot-devtools"
+    implementation "org.projectlombok:lombok:$rootProject.ext.lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$rootProject.ext.lombokVersion"
+    testImplementation("org.mockito:mockito-junit-jupiter:$rootProject.ext.mockitoVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$rootProject.ext.springBootVersion") {
+        exclude group: "junit", module: "junit"
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$rootProject.ext.junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$rootProject.ext.junitVersion")
+    testImplementation("org.junit.platform:junit-platform-launcher" +
+            ":$rootProject.ext.junitPlatformLauncherVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$rootProject.ext.junitVersion")
 
+}
