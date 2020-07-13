@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class ApplicationInitializer implements CommandLineRunner {
 
@@ -25,18 +23,17 @@ public class ApplicationInitializer implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    System.setProperty("greet", "Hello");
     File databaseFile = new File(System.getProperty("user.dir") + "/../initial_data_load.json");
+    logger.info("databaseFile @" + databaseFile.getAbsolutePath());
     ObjectMapper mapper = new ObjectMapper();
     try {
-      List<Question> questions =
-          mapper.readValue(databaseFile, new TypeReference<List<Question>>() {
-          });
+      List<Question> questions = 
+          mapper.readValue(databaseFile, new TypeReference<List<Question>>() {});
       questionRepositoryService.clearDatabase();
       int questionsAddedCount = questionRepositoryService.populateDatabase(questions);
       logger.info(String.format("Added %d items to database", questionsAddedCount));
     } catch (IOException e) {
-      // throw new RuntimeException("Error Loading Data to Database");
+      e.printStackTrace();
     }
   }
 }
