@@ -1,4 +1,4 @@
-package com.crio.buildouts.integ.test.configs;
+package com.volvain.buildout.integ.test.configs;
 
 public class AssessmentConfig {
   private String name;
@@ -9,7 +9,7 @@ public class AssessmentConfig {
   private String verification;
 
   public AssessmentConfig(String name, String url, String method, String input, int status,
-    String verification, String response) {
+      String verification, String response) {
     this.name = name;
     this.url = url;
     this.method = method;

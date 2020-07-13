@@ -2,17 +2,18 @@ package com.volvain.buildout.initializer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.volvain.buildout.repositoryService.QuestionRepositoryService;
-import com.volvain.buildout.repositoryService.repository.entity.Question;
+import com.volvain.buildout.repositoryservice.QuestionRepositoryService;
+import com.volvain.buildout.repositoryservice.repository.entity.Question;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+
 
 @Component
 public class ApplicationInitializer implements CommandLineRunner {
@@ -29,13 +30,13 @@ public class ApplicationInitializer implements CommandLineRunner {
     ObjectMapper mapper = new ObjectMapper();
     try {
       List<Question> questions =
-        mapper.readValue(databaseFile, new TypeReference<List<Question>>() {
-        });
+          mapper.readValue(databaseFile, new TypeReference<List<Question>>() {
+          });
+      questionRepositoryService.clearDatabase();
       int questionsAddedCount = questionRepositoryService.populateDatabase(questions);
       logger.info(String.format("Added %d items to database", questionsAddedCount));
-      logger.info(System.getProperty("java.version"));
     } catch (IOException e) {
-      throw new RuntimeException("Error Loading Data to Database");
+      // throw new RuntimeException("Error Loading Data to Database");
     }
   }
 }

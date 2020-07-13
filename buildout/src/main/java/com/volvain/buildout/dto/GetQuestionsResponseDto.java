@@ -1,11 +1,10 @@
 package com.volvain.buildout.dto;
 
+import java.util.Map;
 import lombok.Data;
 
-import java.util.Map;
-
 @Data
-public class GetQuestionsResponseDTO {
+public class GetQuestionsResponseDto {
   String questionId;
   String title;
   String type;
