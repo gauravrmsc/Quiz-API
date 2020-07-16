@@ -31,7 +31,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class IntegrationTest {
-
   public static final String BASE_URL = "http://localhost:8081";
   private Map<String, AssessmentConfig> configMap;
 
@@ -54,7 +53,7 @@ public class IntegrationTest {
         executePost(config);
         break;
       default:
-        executePut(config);
+        //executePut(config);
         break;
     }
   }

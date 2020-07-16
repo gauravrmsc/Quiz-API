@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class GetQuestionsResponse {
   List<GetQuestionsResponseDto> questions;
+
 }

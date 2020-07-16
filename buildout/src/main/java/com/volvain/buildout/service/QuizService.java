@@ -34,6 +34,7 @@ public class QuizService {
   }
 
   public SubmitQuestionResponse validateResponse(String moduleId, SubmitQuestionRequest request) {
+   Integer score = 0;
     List<Question> moduleQuestions = questionRepositoryService.getModuleQuestions(moduleId);
     HashMap<String, SubmitQuestionRequestDto> userSubmission = mapUserResponse(request);
     List<SubmitQuestionResponseDto> resultList = new ArrayList<>();
@@ -46,12 +47,15 @@ public class QuizService {
         questionResult.setUserAnswer(userResponseForQuestion.getUserResponse());
         if (questionResult.getCorrect().equals(questionResult.getUserAnswer())) {
           questionResult.setAnswerCorrect(true);
+          score += 1;
         }
       }
       resultList.add(questionResult);
     }
     SubmitQuestionResponse response = new SubmitQuestionResponse();
     response.setQuestions(resultList);
+    Summary summary = new Summary(score, moduleQuestions.size());
+    response.setSummary(summary);
     return response;
   }
 
